@@ -1,0 +1,6 @@
+.idea/
+dist/test/
+src/
+.prettierrc
+tsconfig.json
+tslint.json
