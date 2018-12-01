@@ -83,7 +83,7 @@ async function main() {
 main().catch(console.error);
 ```
 
-#### scheduleShutdown(duration, verbose)
+#### scheduleShutdown(duration, [verbose=false])
 
 Schedules a shutdown after the provided duration has elapsed. The duration can be a number of minutes, or a non-empty string matching the regular expression `(\d+h)?(\d+m)?`.
 
@@ -91,7 +91,7 @@ Returns a promise which resolves when the shutdown is successfully scheduled. Th
 
 If verbose is set to true, then the internal commands and their outputs will be logged to the console.
 
-#### cancelShutdown(verbose)
+#### cancelShutdown([verbose=false])
 
 Cancels a previously scheduled shutdown.
 
