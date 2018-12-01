@@ -1,9 +1,9 @@
-export function parseDurationPatternSeconds(pattern: string): number {
-    const durationMatch = /^(\d+h)?(\d+m)?(\d+s)?$/.exec(pattern);
+export function parseDurationPatternMinutes(pattern: string): number {
+    const durationMatch = /^(\d+h)?(\d+m)?$/.exec(pattern);
     if (!durationMatch || !durationMatch.input) {
         return -1;
     }
-    let seconds = 0;
+    let minutes = 0;
     for (let i = 1; i < durationMatch.length; i++) {
         const match = durationMatch[i];
         if (!match) {
@@ -11,13 +11,10 @@ export function parseDurationPatternSeconds(pattern: string): number {
         }
         let value = Number(match.slice(0, -1));
         const unit = match.slice(-1);
-        if (unit !== 's') {
+        if (unit !== 'm') {
             value *= 60;
-            if (unit !== 'm') {
-                value *= 60;
-            }
         }
-        seconds += value;
+        minutes += value;
     }
-    return seconds;
+    return minutes;
 }

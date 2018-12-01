@@ -38,16 +38,16 @@ Commands:
                                            shutdown
 
 Options:
+  --verbose      Log the internal commands used and their outputs
+                                                      [boolean] [default: false]
   -h, --help     Show help                                             [boolean]
   -v, --version  Show version number                                   [boolean]
 
 Examples:
-  schedule-shutdown 30s    Shutdown in 30 seconds
-  schedule-shutdown 45m    Shutdown in 45 minutes
-  schedule-shutdown 1m30s  Shutdown in 1 minute and 30 seconds
+  schedule-shutdown 5m     Shutdown in 5 minutes
+  schedule-shutdown 30m    Shutdown in 30 minutes
   schedule-shutdown 1h30m  Shutdown in 1 hour and 30 minutes
-  schedule-shutdown 2h9s   Shutdown in 2 hours and 9 seconds
-  schedule-shutdown 0s     Shutdown immediately
+  schedule-shutdown 0m     Shutdown immediately
 
 $ schedule-shutdown 1h20m
 Shutdown scheduled for Sat Dec 01 2018 6:56:40 PM
@@ -74,7 +74,7 @@ async function main() {
     await cancelShutdown();
     console.log('Shutdown cancelled');
 
-    shutdownTime = await scheduleShutdown(60); // shutdown in 60 seconds
+    shutdownTime = await scheduleShutdown(5); // shutdown in 5 minutes
     console.log(`Actually, shutting down at ${shutdownTime.toLocaleTimeString()}`);
     await cancelShutdown();
     console.log('Shutdown cancelled again');
@@ -83,17 +83,21 @@ async function main() {
 main().catch(console.error);
 ```
 
-#### scheduleShutdown(duration)
+#### scheduleShutdown(duration, verbose)
 
-Schedules a shutdown after the provided duration has elapsed. The duration can be a number of seconds, or a non-empty string matching the regular expression `(\d+h)?(\d+m)?(\d+s)?`.
+Schedules a shutdown after the provided duration has elapsed. The duration can be a number of minutes, or a non-empty string matching the regular expression `(\d+h)?(\d+m)?`.
 
 Returns a promise which resolves when the shutdown is successfully scheduled. The resolved value is the scheduled shutdown time as a `Date` object. The promise will reject if the internal command failed.
 
-#### cancelShutdown()
+If verbose is set to true, then the internal commands and their outputs will be logged to the console.
+
+#### cancelShutdown(verbose)
 
 Cancels a previously scheduled shutdown.
 
 Returns a promise which resolves when the shutdown cancelled successfully. The promise will reject if the internal command failed.
+
+If verbose is set to true, then the internal commands and their outputs will be logged to the console.
 
 ## Future Improvements
 

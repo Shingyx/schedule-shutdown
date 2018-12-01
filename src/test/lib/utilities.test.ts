@@ -1,60 +1,40 @@
-import { parseDurationPatternSeconds } from '../../lib/utilities';
+import { parseDurationPatternMinutes } from '../../lib/utilities';
 
-describe('parseDurationPatternSeconds', () => {
-    test('0s returns 0', () => {
-        expect(parseDurationPatternSeconds('0s')).toBe(0);
-    });
-
-    test('5s returns 5', () => {
-        expect(parseDurationPatternSeconds('5s')).toBe(5);
-    });
-
-    test('12s returns 12', () => {
-        expect(parseDurationPatternSeconds('12s')).toBe(12);
-    });
-
-    test('321s returns 321', () => {
-        expect(parseDurationPatternSeconds('321s')).toBe(321);
-    });
-
-    test('5m returns 300', () => {
-        expect(parseDurationPatternSeconds('5m')).toBe(300);
-    });
-
-    test('5m10s returns 310', () => {
-        expect(parseDurationPatternSeconds('5m10s')).toBe(310);
-    });
-
-    test('1h returns 3600', () => {
-        expect(parseDurationPatternSeconds('1h')).toBe(3600);
-    });
-
-    test('1h30m returns 5400', () => {
-        expect(parseDurationPatternSeconds('1h30m')).toBe(5400);
-    });
-
-    test('1h2m3s returns 3723', () => {
-        expect(parseDurationPatternSeconds('1h2m3s')).toBe(3723);
-    });
-
-    test('1h30s returns 3630', () => {
-        expect(parseDurationPatternSeconds('1h30s')).toBe(3630);
-    });
-
-    test('11h30s returns 39630', () => {
-        expect(parseDurationPatternSeconds('11h30s')).toBe(39630);
-    });
-
+describe('parseDurationPatternMinutes', () => {
     test('0m returns 0', () => {
-        expect(parseDurationPatternSeconds('0m')).toBe(0);
+        expect(parseDurationPatternMinutes('0m')).toBe(0);
     });
 
     test('0h returns 0', () => {
-        expect(parseDurationPatternSeconds('0h')).toBe(0);
+        expect(parseDurationPatternMinutes('0h')).toBe(0);
     });
 
-    test('0h0m0s returns 0', () => {
-        expect(parseDurationPatternSeconds('0h')).toBe(0);
+    test('0h0m returns 0', () => {
+        expect(parseDurationPatternMinutes('0h0m')).toBe(0);
+    });
+
+    test('5m returns 5', () => {
+        expect(parseDurationPatternMinutes('5m')).toBe(5);
+    });
+
+    test('12m returns 12', () => {
+        expect(parseDurationPatternMinutes('12m')).toBe(12);
+    });
+
+    test('321m returns 321', () => {
+        expect(parseDurationPatternMinutes('321m')).toBe(321);
+    });
+
+    test('5h returns 300', () => {
+        expect(parseDurationPatternMinutes('5h')).toBe(300);
+    });
+
+    test('5h10m returns 310', () => {
+        expect(parseDurationPatternMinutes('5h10m')).toBe(310);
+    });
+
+    test('1h60m returns 120', () => {
+        expect(parseDurationPatternMinutes('1h60m')).toBe(120);
     });
 
     describe('invalid values', () => {
@@ -75,7 +55,7 @@ describe('parseDurationPatternSeconds', () => {
 
         for (const value of invalidValues) {
             test(`${JSON.stringify(value)} returns -1`, () => {
-                expect(parseDurationPatternSeconds(value)).toBe(-1);
+                expect(parseDurationPatternMinutes(value)).toBe(-1);
             });
         }
     });

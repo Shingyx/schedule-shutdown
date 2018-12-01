@@ -14,9 +14,9 @@ try {
         .command({
             command: '$0 <duration-pattern>',
             describe: 'Schedules a shutdown after the provided duration has elapsed',
-            async handler({ durationPattern }) {
+            async handler({ durationPattern, verbose }) {
                 try {
-                    const shutdownTime = await scheduleShutdown(durationPattern);
+                    const shutdownTime = await scheduleShutdown(durationPattern, verbose);
                     const timeString = `${shutdownTime.toDateString()} ${shutdownTime.toLocaleTimeString()}`;
                     console.log(`Shutdown scheduled for ${timeString}`);
                 } catch (e) {
@@ -27,21 +27,24 @@ try {
         .command({
             command: 'cancel',
             describe: 'Cancels a previously scheduled shutdown',
-            async handler() {
+            async handler({ verbose }) {
                 try {
-                    await cancelShutdown();
+                    await cancelShutdown(verbose);
                     console.log('Shutdown cancelled');
                 } catch (e) {
                     onError(e);
                 }
             },
         })
-        .example('$0 30s', 'Shutdown in 30 seconds')
-        .example('$0 45m', 'Shutdown in 45 minutes')
-        .example('$0 1m30s', 'Shutdown in 1 minute and 30 seconds')
+        .option('verbose', {
+            describe: 'Log the internal commands used and their outputs',
+            type: 'boolean',
+            default: false,
+        })
+        .example('$0 5m', 'Shutdown in 5 minutes')
+        .example('$0 30m', 'Shutdown in 30 minutes')
         .example('$0 1h30m', 'Shutdown in 1 hour and 30 minutes')
-        .example('$0 2h9s', 'Shutdown in 2 hours and 9 seconds')
-        .example('$0 0s', 'Shutdown immediately')
+        .example('$0 0m', 'Shutdown immediately')
         .alias({
             h: 'help',
             v: 'version',

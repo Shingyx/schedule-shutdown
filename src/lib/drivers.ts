@@ -1,16 +1,17 @@
-import childProcess from 'child_process';
+import { execFile } from 'child_process';
 import { promisify } from 'util';
 
-const execFile = promisify(childProcess.execFile);
-
 export interface IDriver {
-    scheduleShutdown(seconds: number): Promise<void>;
-    cancelShutdown(): Promise<void>;
+    scheduleShutdown(minutes: number, verbose: boolean): Promise<void>;
+    cancelShutdown(verbose: boolean): Promise<void>;
 }
 
 let driver: IDriver | undefined;
 
 switch (process.platform) {
+    case 'linux':
+        driver = getLinuxDriver();
+        break;
     case 'win32':
         driver = getWindowsDriver();
         break;
@@ -23,13 +24,36 @@ export function getDriver(): IDriver {
     return driver;
 }
 
-function getWindowsDriver(): IDriver {
+function getLinuxDriver(): IDriver {
     return {
-        async scheduleShutdown(seconds: number): Promise<void> {
-            await execFile('shutdown.exe', ['/s', '/t', seconds.toString()]);
+        async scheduleShutdown(minutes: number, verbose: boolean): Promise<void> {
+            await execHelper('shutdown', ['-h', `+${minutes}`], verbose);
         },
-        async cancelShutdown(): Promise<void> {
-            await execFile('shutdown.exe', ['/a']);
+        async cancelShutdown(verbose: boolean): Promise<void> {
+            await execHelper('shutdown', ['-c'], verbose);
         },
     };
+}
+
+function getWindowsDriver(): IDriver {
+    return {
+        async scheduleShutdown(minutes: number, verbose: boolean): Promise<void> {
+            const seconds = minutes * 60;
+            await execHelper('shutdown.exe', ['/s', '/t', seconds.toString()], verbose);
+        },
+        async cancelShutdown(verbose: boolean): Promise<void> {
+            await execHelper('shutdown.exe', ['/a'], verbose);
+        },
+    };
+}
+
+async function execHelper(file: string, args: string[], verbose: boolean): Promise<void> {
+    if (verbose) {
+        console.log(`executing: ${[file, ...args].join(' ')}`);
+    }
+    const { stdout, stderr } = await promisify(execFile)(file, args);
+    const output = (stdout || stderr).trim();
+    if (verbose) {
+        console.log(`output: ${output || '[no output]'}`);
+    }
 }
