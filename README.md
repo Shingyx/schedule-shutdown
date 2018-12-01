@@ -1,6 +1,9 @@
 # schedule-shutdown
 
-[![Build Status](https://travis-ci.com/Shingyx/schedule-shutdown.svg?branch=master)](https://travis-ci.com/Shingyx/schedule-shutdown)
+[![Build Status](https://img.shields.io/travis/com/Shingyx/schedule-shutdown/master.svg?style=flat-square)](https://travis-ci.com/Shingyx/schedule-shutdown)
+[![npm](https://img.shields.io/npm/v/schedule-shutdown.svg?style=flat-square)](https://www.npmjs.com/package/schedule-shutdown)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![GitHub](https://img.shields.io/github/license/Shingyx/schedule-shutdown.svg?style=flat-square)](https://github.com/Shingyx/schedule-shutdown/blob/master/LICENSE.md)
 
 _schedule-shutdown_ is a CLI tool to schedule computer shutdowns. This can be useful when:
 
@@ -21,7 +24,7 @@ Install _schedule-shutdown_ with either of the following, depending on your pref
 
 Then use it like so:
 
-```
+```console
 $ schedule-shutdown --help
 schedule-shutdown <duration-pattern>
 
