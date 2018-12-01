@@ -1,3 +1,6 @@
+import { execFile } from 'child_process';
+import { promisify } from 'util';
+
 export function parseDurationPatternMinutes(pattern: string): number {
     const durationMatch = /^(\d+h)?(\d+m)?$/.exec(pattern);
     if (!durationMatch || !durationMatch.input) {
@@ -17,4 +20,15 @@ export function parseDurationPatternMinutes(pattern: string): number {
         minutes += value;
     }
     return minutes;
+}
+
+export async function execHelper(file: string, args: string[], verbose: boolean): Promise<void> {
+    if (verbose) {
+        console.log(`executing: ${[file, ...args].join(' ')}`);
+    }
+    const result = await promisify(execFile)(file, args);
+    if (verbose) {
+        const output = `${result.stdout.trim()}\n${result.stderr.trim()}`;
+        console.log(`output: ${output.trim() || '[no output]'}`);
+    }
 }
