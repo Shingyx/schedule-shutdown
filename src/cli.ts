@@ -10,6 +10,7 @@ function onError(e: Error) {
 
 try {
     yargs
+        .scriptName('schedule-shutdown')
         .command({
             command: '$0 <duration-pattern>',
             describe: 'Schedules a shutdown after the provided duration has elapsed',
