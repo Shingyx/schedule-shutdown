@@ -58,10 +58,23 @@ describe('parseDurationPatternSeconds', () => {
     });
 
     describe('invalid values', () => {
-        const invalidValues = ['', 'hello world', '1s2s', '2m3m3s', '3s2m1h'];
+        const invalidValues: any[] = [
+            '',
+            'hello world',
+            '1s2s',
+            '2m3m3s',
+            '3s2m1h',
+            [],
+            [8],
+            {},
+            { a: 'b' },
+            0,
+            6,
+            -1,
+        ];
 
         for (const value of invalidValues) {
-            test(`"${value}" returns -1`, () => {
+            test(`${JSON.stringify(value)} returns -1`, () => {
                 expect(parseDurationPatternSeconds(value)).toBe(-1);
             });
         }

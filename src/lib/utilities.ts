@@ -1,6 +1,6 @@
 export function parseDurationPatternSeconds(pattern: string): number {
     const durationMatch = /^(\d+h)?(\d+m)?(\d+s)?$/.exec(pattern);
-    if (!pattern || !durationMatch) {
+    if (!durationMatch || !durationMatch.input) {
         return -1;
     }
     let seconds = 0;
@@ -9,7 +9,7 @@ export function parseDurationPatternSeconds(pattern: string): number {
         if (!match) {
             continue;
         }
-        let value = Number.parseInt(match.slice(0, -1), 10);
+        let value = Number(match.slice(0, -1));
         const unit = match.slice(-1);
         if (unit !== 's') {
             value *= 60;
