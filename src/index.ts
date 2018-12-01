@@ -3,7 +3,7 @@ import { parseDurationPatternSeconds } from './lib/utilities';
 
 /**
  * Schedules a shutdown after the provided duration has elapsed
- * @param duration - Number of seconds or a non-empty string matching the pattern "(\d+h)?(\d+m)?(\d+s)?"
+ * @param duration - Number of seconds or a non-empty string matching the regular expression "(\d+h)?(\d+m)?(\d+s)?"
  * @returns The scheduled shutdown time
  */
 export async function scheduleShutdown(duration: number | string): Promise<Date> {

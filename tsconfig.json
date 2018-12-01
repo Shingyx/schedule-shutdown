@@ -6,6 +6,7 @@
       "es2018"
     ],
     "outDir": "dist",
+    "declaration": true,
     "esModuleInterop": true,
     "noUnusedLocals": true,
     "strict": true
