@@ -41,6 +41,10 @@ describe('parseDurationPatternSeconds', () => {
         expect(parseDurationPatternSeconds('1h30s')).toBe(3630);
     });
 
+    test('11h30s returns 39630', () => {
+        expect(parseDurationPatternSeconds('11h30s')).toBe(39630);
+    });
+
     test('0m returns 0', () => {
         expect(parseDurationPatternSeconds('0m')).toBe(0);
     });

@@ -8,13 +8,19 @@ export interface IDriver {
     cancelShutdown(): Promise<void>;
 }
 
+let driver: IDriver | undefined;
+
+switch (process.platform) {
+    case 'win32':
+        driver = getWindowsDriver();
+        break;
+}
+
 export function getDriver(): IDriver {
-    switch (process.platform) {
-        case 'win32':
-            return getWindowsDriver();
-        default:
-            throw new Error(`Your platform "${process.platform}" is not supported`);
+    if (!driver) {
+        throw new Error(`Your platform "${process.platform}" is not supported`);
     }
+    return driver;
 }
 
 function getWindowsDriver(): IDriver {
