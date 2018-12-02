@@ -8,16 +8,17 @@
   "main": "dist/index.js",
   "bin": "dist/cli.js",
   "scripts": {
-    "prepare": "yarn build",
-    "clean": "rimraf dist",
     "prebuild": "yarn clean",
     "build": "tsc",
-    "pretest": "yarn build",
+    "build-test": "yarn build && yarn test",
+    "clean": "rimraf dist",
+    "format": "yarn tslint --fix && yarn prettier --write",
+    "prepare": "yarn build",
+    "prepublishOnly": "yarn test",
+    "prettier": "prettier --list-different \"src/**/*.ts\"",
     "test": "jest",
     "posttest": "yarn tslint && yarn prettier",
-    "tslint": "tslint --project tsconfig.json",
-    "prettier": "prettier --list-different \"src/**/*.ts\"",
-    "format": "yarn tslint --fix && yarn prettier --write"
+    "tslint": "tslint --project tsconfig.json"
   },
   "dependencies": {
     "yargs": "^12.0.5"
