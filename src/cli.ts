@@ -44,6 +44,7 @@ try {
         .example('$0 5m', 'Shutdown in 5 minutes')
         .example('$0 30m', 'Shutdown in 30 minutes')
         .example('$0 1h30m', 'Shutdown in 1 hour and 30 minutes')
+        .example('$0 3h', 'Shutdown in 3 hours')
         .example('$0 0m', 'Shutdown immediately')
         .alias({
             h: 'help',

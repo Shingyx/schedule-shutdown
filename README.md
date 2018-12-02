@@ -47,6 +47,7 @@ Examples:
   schedule-shutdown 5m     Shutdown in 5 minutes
   schedule-shutdown 30m    Shutdown in 30 minutes
   schedule-shutdown 1h30m  Shutdown in 1 hour and 30 minutes
+  schedule-shutdown 3h     Shutdown in 3 hours
   schedule-shutdown 0m     Shutdown immediately
 
 $ schedule-shutdown 1h20m
