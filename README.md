@@ -103,8 +103,3 @@ Cancels a previously scheduled shutdown or restart.
 Returns a promise which resolves when the shutdown cancelled successfully. The promise will reject if the internal command failed.
 
 If verbose is set to true, then the internal commands and their outputs will be logged to the console.
-
-## Future Improvements
-
--   Support more platforms
--   Schedule sleeps
