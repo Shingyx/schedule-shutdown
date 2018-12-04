@@ -3,6 +3,7 @@ import win32 from './win32';
 
 export interface IDriver {
     scheduleShutdown(minutes: number, verbose: boolean): Promise<void>;
+    scheduleRestart(minutes: number, verbose: boolean): Promise<void>;
     cancelShutdown(verbose: boolean): Promise<void>;
 }
 

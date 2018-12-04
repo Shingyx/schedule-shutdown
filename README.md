@@ -92,9 +92,13 @@ Returns a promise which resolves when the shutdown is successfully scheduled. Th
 
 If verbose is set to true, then the internal commands and their outputs will be logged to the console.
 
+#### scheduleRestart(duration, [verbose=false])
+
+Exactly like `scheduleShutdown(duration, [verbose=false])`, but schedules a restart instead.
+
 #### cancelShutdown([verbose=false])
 
-Cancels a previously scheduled shutdown.
+Cancels a previously scheduled shutdown or restart.
 
 Returns a promise which resolves when the shutdown cancelled successfully. The promise will reject if the internal command failed.
 
@@ -103,4 +107,4 @@ If verbose is set to true, then the internal commands and their outputs will be 
 ## Future Improvements
 
 -   Support more platforms
--   Schedule restarts or sleeps
+-   Schedule sleeps

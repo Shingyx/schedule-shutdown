@@ -1,4 +1,4 @@
-import { parseDurationPatternMinutes } from '../../lib/utilities';
+import { parseAndValidateMinutes, parseDurationPatternMinutes } from '../../lib/utilities';
 
 describe('parseDurationPatternMinutes', () => {
     test('0m returns 0', () => {
@@ -58,5 +58,35 @@ describe('parseDurationPatternMinutes', () => {
                 expect(parseDurationPatternMinutes(value)).toBe(-1);
             });
         }
+    });
+});
+
+describe('parseAndValidateMinutes', () => {
+    test('0 returns 0', () => {
+        expect(parseAndValidateMinutes(0)).toBe(0);
+    });
+
+    test('5 returns 5', () => {
+        expect(parseAndValidateMinutes(5)).toBe(5);
+    });
+
+    test('"0m" returns 0', () => {
+        expect(parseAndValidateMinutes('0m')).toBe(0);
+    });
+
+    test('"5m" returns 5', () => {
+        expect(parseAndValidateMinutes('5m')).toBe(5);
+    });
+
+    test('"1h" returns 60', () => {
+        expect(parseAndValidateMinutes('1h')).toBe(60);
+    });
+
+    test('-1 throws', () => {
+        expect(() => parseAndValidateMinutes(-1)).toThrow();
+    });
+
+    test('"hello world" throws', () => {
+        expect(() => parseAndValidateMinutes('hello world')).toThrow();
     });
 });

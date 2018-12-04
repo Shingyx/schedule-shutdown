@@ -22,6 +22,14 @@ export function parseDurationPatternMinutes(pattern: string): number {
     return minutes;
 }
 
+export function parseAndValidateMinutes(duration: number | string): number {
+    const minutes = typeof duration === 'number' ? duration : parseDurationPatternMinutes(duration);
+    if (minutes < 0) {
+        throw new Error(`Invalid input "${duration}"`);
+    }
+    return minutes;
+}
+
 export async function execHelper(file: string, args: string[], verbose: boolean): Promise<void> {
     if (verbose) {
         console.log(`executing: ${[file, ...args].join(' ')}`);
