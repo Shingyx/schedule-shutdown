@@ -11,7 +11,7 @@ _schedule-shutdown_ is a CLI tool to schedule computer shutdowns. This can be us
 -   You already know the command `shutdown.exe /s /t <seconds>`, but you can't be bothered converting 2 hours and 47 minutes into seconds
 -   You want something to force you to go to bed at a reasonable hour
 
-Requires Node 8 or above. _schedule-shutdown_ can also be used as a library.
+Requires Node 8 or above. Currently supports Windows and Ubuntu (other Linux distros should also work). _schedule-shutdown_ can also be used as a library.
 
 ## Usage
 
