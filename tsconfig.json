@@ -8,6 +8,7 @@
     "outDir": "dist",
     "declaration": true,
     "esModuleInterop": true,
+    "newLine": "LF",
     "noUnusedLocals": true,
     "strict": true
   }
