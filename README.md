@@ -35,10 +35,12 @@ Commands:
                                            provided duration has elapsed
                                                                        [default]
   schedule-shutdown cancel                 Cancels a previously scheduled
-                                           shutdown
+                                           shutdown or restart
 
 Options:
   --verbose      Log the internal commands used and their outputs
+                                                      [boolean] [default: false]
+  -r, --restart  Schedule a restart instead of a shutdown
                                                       [boolean] [default: false]
   -h, --help     Show help                                             [boolean]
   -v, --version  Show version number                                   [boolean]
@@ -49,12 +51,19 @@ Examples:
   schedule-shutdown 1h30m  Shutdown in 1 hour and 30 minutes
   schedule-shutdown 3h     Shutdown in 3 hours
   schedule-shutdown 0m     Shutdown immediately
+  schedule-shutdown -r 2h  Restart in 2 hours
 
 $ schedule-shutdown 1h20m
-Shutdown scheduled for Sat Dec 01 2018 6:56:40 PM
+Shutdown scheduled for Tue Dec 04 2018 7:26:20 PM
 
 $ schedule-shutdown cancel
-Shutdown cancelled
+Scheduled shutdown or restart cancelled
+
+$ schedule-shutdown --restart 3h
+Restart scheduled for Tue Dec 04 2018 9:06:30 PM
+
+$ schedule-shutdown cancel
+Scheduled shutdown or restart cancelled
 ```
 
 To uninstall, do one of the following, depending on how you installed it:
@@ -67,18 +76,20 @@ To uninstall, do one of the following, depending on how you installed it:
 If you have your own project where you want to shutdown people's computers, you can use _schedule-shutdown_ as a library:
 
 ```typescript
-import { cancelShutdown, scheduleShutdown } from 'schedule-shutdown';
+import { cancelShutdown, scheduleRestart, scheduleShutdown } from 'schedule-shutdown';
 
 async function main() {
-    let shutdownTime = await scheduleShutdown('1h20m'); // shutdown in 1 hour and 20 minutes
+    // shutdown in 1 hour and 20 minutes
+    const shutdownTime = await scheduleShutdown('1h20m');
     console.log(`Shutting down at ${shutdownTime.toLocaleTimeString()}`);
     await cancelShutdown();
     console.log('Shutdown cancelled');
 
-    shutdownTime = await scheduleShutdown(5); // shutdown in 5 minutes
-    console.log(`Actually, shutting down at ${shutdownTime.toLocaleTimeString()}`);
+    // restart in 5 minutes
+    const restartTime = await scheduleRestart(5);
+    console.log(`Restarting at ${restartTime.toLocaleTimeString()}`);
     await cancelShutdown();
-    console.log('Shutdown cancelled again');
+    console.log('Restart cancelled');
 }
 
 main().catch(console.error);
