@@ -1,9 +1,6 @@
 # schedule-shutdown
 
-[![Build Status](https://img.shields.io/travis/com/Shingyx/schedule-shutdown/master.svg?style=flat-square)](https://travis-ci.com/Shingyx/schedule-shutdown)
-[![npm](https://img.shields.io/npm/v/schedule-shutdown.svg?style=flat-square)](https://www.npmjs.com/package/schedule-shutdown)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![GitHub](https://img.shields.io/github/license/Shingyx/schedule-shutdown.svg?style=flat-square)](https://github.com/Shingyx/schedule-shutdown/blob/master/LICENSE.md)
+[![Build Status][travis-image]][travis-url] [![NPM version][npm-image]][npm-url] [![Prettier][prettier-image]][prettier-url] [![License][license-image]][license-url]
 
 _schedule-shutdown_ is a CLI tool to schedule computer shutdowns. This can be useful when:
 
@@ -114,3 +111,12 @@ Cancels a previously scheduled shutdown or restart.
 Returns a promise which resolves when the shutdown cancelled successfully. The promise will reject if the internal command failed.
 
 If verbose is set to true, then the internal commands and their outputs will be logged to the console.
+
+[travis-image]: https://img.shields.io/travis/com/Shingyx/schedule-shutdown/master.svg?style=flat-square
+[travis-url]: https://travis-ci.com/Shingyx/schedule-shutdown
+[npm-image]: https://img.shields.io/npm/v/schedule-shutdown.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/schedule-shutdown
+[prettier-image]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
+[prettier-url]: https://github.com/prettier/prettier
+[license-image]: https://img.shields.io/github/license/Shingyx/schedule-shutdown.svg?style=flat-square
+[license-url]: https://github.com/Shingyx/schedule-shutdown/blob/master/LICENSE.md

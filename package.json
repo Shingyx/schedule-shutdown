@@ -6,6 +6,7 @@
   "license": "MIT",
   "author": "Su-Shing Chen",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": "dist/cli.js",
   "scripts": {
     "prebuild": "yarn clean",
@@ -15,7 +16,7 @@
     "format": "yarn tslint --fix && yarn prettier --write",
     "prepare": "yarn build",
     "prepublishOnly": "yarn test",
-    "prettier": "prettier --list-different \"src/**/*.ts\"",
+    "prettier": "prettier --list-different \"src/**/*.ts\" \"*.md\"",
     "test": "jest",
     "posttest": "yarn tslint && yarn prettier",
     "tslint": "tslint --project tsconfig.json"
