@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 -   This file
 -   Apply Prettier to .md files
+-   Use `files` property in package.json instead of .npmignore
 
 ## [1.1.2] - 2018-12-04
 

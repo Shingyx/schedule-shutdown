@@ -1,7 +1,0 @@
-.idea/
-dist/test/
-src/
-.prettierrc
-.travis.yml
-tsconfig.json
-tslint.json

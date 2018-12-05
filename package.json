@@ -5,6 +5,9 @@
   "repository": "https://github.com/Shingyx/schedule-shutdown",
   "license": "MIT",
   "author": "Su-Shing Chen",
+  "files": [
+    "dist/!(test)"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": "dist/cli.js",
