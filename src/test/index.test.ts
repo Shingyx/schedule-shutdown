@@ -102,5 +102,5 @@ function mockDriver(driver: Partial<drivers.IDriver>): void {
 
 function assertDateIsClose(actual: Date, expected: Date): void {
     const diff = Math.abs(expected.valueOf() - actual.valueOf());
-    expect(diff).toBeLessThan(10);
+    expect(diff).toBeLessThan(50);
 }
