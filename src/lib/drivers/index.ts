@@ -12,11 +12,10 @@ const supportedDrivers: { [platform: string]: IDriver | undefined } = {
     win32,
 };
 
-const driver = supportedDrivers[process.platform];
-
-export function getDriver(): IDriver {
+export function getDriver(platform: NodeJS.Platform): IDriver {
+    const driver = supportedDrivers[platform];
     if (!driver) {
-        throw new Error(`Your platform "${process.platform}" is not supported`);
+        throw new Error(`Your platform "${platform}" is not supported`);
     }
     return driver;
 }
