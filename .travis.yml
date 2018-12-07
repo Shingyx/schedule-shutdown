@@ -11,7 +11,7 @@ install:
   - yarn --frozen-lockfile
 
 script:
-  - yarn test-coveralls
+  - yarn test-codecov
 
 notifications:
   email: false

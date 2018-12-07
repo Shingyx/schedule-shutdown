@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 -   Apply Prettier to .md files
 -   Use `files` property in package.json instead of .npmignore
 -   Add more tests and test coverage
--   Coveralls support
+-   Codecov support
 
 ## [1.1.2] - 2018-12-04
 
