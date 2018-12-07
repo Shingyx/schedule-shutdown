@@ -9,6 +9,7 @@
     "declaration": true,
     "esModuleInterop": true,
     "importHelpers": true,
+    "inlineSourceMap": true,
     "newLine": "LF",
     "noUnusedLocals": true,
     "strict": true
