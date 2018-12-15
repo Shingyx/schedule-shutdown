@@ -1,29 +1,24 @@
+import { assert } from 'chai';
 import { getDriver } from '../../../lib/drivers';
 
-describe('getDriver', () => {
-    test('linux is supported', () => {
-        const driver = getDriver('linux');
-        expect(driver).toMatchObject({
-            scheduleShutdown: expect.anything(),
-            scheduleRestart: expect.anything(),
-            cancelShutdown: expect.anything(),
+describe('lib/drivers/index', () => {
+    describe('getDriver', () => {
+        it('linux is supported', () => {
+            const driver = getDriver('linux');
+            assert.hasAllKeys(driver, ['scheduleShutdown', 'scheduleRestart', 'cancelShutdown']);
         });
-    });
 
-    test('win32 is supported', () => {
-        const driver = getDriver('win32');
-        expect(driver).toMatchObject({
-            scheduleShutdown: expect.anything(),
-            scheduleRestart: expect.anything(),
-            cancelShutdown: expect.anything(),
+        it('win32 is supported', () => {
+            const driver = getDriver('win32');
+            assert.hasAllKeys(driver, ['scheduleShutdown', 'scheduleRestart', 'cancelShutdown']);
         });
-    });
 
-    test('darwin is not supported', () => {
-        expect(() => getDriver('darwin')).toThrow('Your platform "darwin" is not supported');
-    });
+        it('darwin is not supported', () => {
+            assert.throws(() => getDriver('darwin'), 'Your platform "darwin" is not supported');
+        });
 
-    test('blah is not supported', () => {
-        expect(() => getDriver('blah' as any)).toThrow('Your platform "blah" is not supported');
+        it('blah is not supported', () => {
+            assert.throws(() => getDriver('blah' as any), 'Your platform "blah" is not supported');
+        });
     });
 });

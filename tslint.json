@@ -8,6 +8,7 @@
     "await-promise": true,
     "no-console": false,
     "no-floating-promises": true,
+    "no-implicit-dependencies": [true, "dev"],
 
     // Disable formatting rules to avoid conflicting with Prettier
     "align": false,

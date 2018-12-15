@@ -1,110 +1,127 @@
+import { assert } from 'chai';
+import sinon from 'sinon';
 import * as index from '../../index';
 import { processArgs } from '../../lib/cli-helper';
 import * as utilities from '../../lib/utilities';
 
-let scheduleShutdownMock: jest.MockContext<typeof index.scheduleShutdown>;
-let scheduleRestartMock: jest.MockContext<typeof index.scheduleRestart>;
-let cancelShutdownMock: jest.MockContext<typeof index.cancelShutdown>;
+describe('lib/cli-helper', () => {
+    const sandbox = sinon.createSandbox();
+    let scheduleShutdownSpy: sinon.SinonSpy;
+    let scheduleRestartSpy: sinon.SinonSpy;
+    let cancelShutdownSpy: sinon.SinonSpy;
 
-beforeEach(() => {
-    scheduleShutdownMock = jest.spyOn(index, 'scheduleShutdown').mock;
-    scheduleRestartMock = jest.spyOn(index, 'scheduleRestart').mock;
-    cancelShutdownMock = jest.spyOn(index, 'cancelShutdown').mock;
+    beforeEach(() => {
+        scheduleShutdownSpy = sandbox.spy(index, 'scheduleShutdown');
+        scheduleRestartSpy = sandbox.spy(index, 'scheduleRestart');
+        cancelShutdownSpy = sandbox.spy(index, 'cancelShutdown');
 
-    // don't actually shutdown
-    jest.spyOn(utilities, 'execHelper').mockResolvedValue(undefined);
-});
-
-afterEach(() => {
-    jest.restoreAllMocks();
-});
-
-describe('processArgs', () => {
-    test('1h20m', async () => {
-        await processArgs(['1h20m']);
-        assertCalls({ scheduleShutdown: ['1h20m', false] });
+        // don't actually shutdown
+        sandbox.stub(utilities, 'execHelper').resolves();
     });
 
-    test('--verbose 10m', async () => {
-        await processArgs(['--verbose', '10m']);
-        assertCalls({ scheduleShutdown: ['10m', true] });
+    afterEach(() => {
+        sandbox.restore();
     });
 
-    test('3h --verbose', async () => {
-        await processArgs(['3h', '--verbose']);
-        assertCalls({ scheduleShutdown: ['3h', true] });
-    });
+    describe('processArgs', () => {
+        it('1h20m', async () => {
+            await processArgs(['1h20m']);
+            assertCalls({ scheduleShutdown: ['1h20m', false] });
+        });
 
-    test('--restart 1h20m', async () => {
-        await processArgs(['--restart', '1h20m']);
-        assertCalls({ scheduleRestart: ['1h20m', false] });
-    });
+        it('--verbose 10m', async () => {
+            await processArgs(['--verbose', '10m']);
+            assertCalls({ scheduleShutdown: ['10m', true] });
+        });
 
-    test('5m -r --verbose', async () => {
-        await processArgs(['5m', '-r', '--verbose']);
-        assertCalls({ scheduleRestart: ['5m', true] });
-    });
+        it('3h --verbose', async () => {
+            await processArgs(['3h', '--verbose']);
+            assertCalls({ scheduleShutdown: ['3h', true] });
+        });
 
-    test('cancel', async () => {
-        await processArgs(['cancel']);
-        assertCalls({ cancelShutdown: [false] });
-    });
+        it('--restart 1h20m', async () => {
+            await processArgs(['--restart', '1h20m']);
+            assertCalls({ scheduleRestart: ['1h20m', false] });
+        });
 
-    test('--verbose cancel', async () => {
-        await processArgs(['--verbose', 'cancel']);
-        assertCalls({ cancelShutdown: [true] });
-    });
+        it('5m -r --verbose', async () => {
+            await processArgs(['5m', '-r', '--verbose']);
+            assertCalls({ scheduleRestart: ['5m', true] });
+        });
 
-    test('--version', async () => {
-        await processArgs(['--version']);
-        assertCalls({});
-    });
+        it('cancel', async () => {
+            await processArgs(['cancel']);
+            assertCalls({ cancelShutdown: [false] });
+        });
 
-    test('-v', async () => {
-        await processArgs(['-v']);
-        assertCalls({});
-    });
+        it('--verbose cancel', async () => {
+            await processArgs(['--verbose', 'cancel']);
+            assertCalls({ cancelShutdown: [true] });
+        });
 
-    test('--help', async () => {
-        await processArgs(['--help']);
-        assertCalls({});
-    });
+        it('--version', async () => {
+            await processArgs(['--version']);
+            assertCalls({});
+        });
 
-    test('-h', async () => {
-        await processArgs(['-h']);
-        assertCalls({});
-    });
+        it('-v', async () => {
+            await processArgs(['-v']);
+            assertCalls({});
+        });
 
-    test('-1m fails', async () => {
-        await expect(processArgs(['-1m'])).rejects.toThrow();
-        assertCalls({ scheduleShutdown: ['-1m', false] });
-    });
+        it('--help', async () => {
+            await processArgs(['--help']);
+            assertCalls({});
+        });
 
-    test('hello world fails', async () => {
-        await expect(processArgs(['hello', 'world'])).rejects.toThrow();
-        assertCalls({ scheduleShutdown: ['hello', false] });
-    });
+        it('-h', async () => {
+            await processArgs(['-h']);
+            assertCalls({});
+        });
 
-    test('unknown argument fails', async () => {
-        await expect(processArgs(['--unknown'])).rejects.toThrow();
-        assertCalls({});
-    });
+        it('-1m fails', async () => {
+            await processArgs(['-1m']).then(
+                () => assert.fail(),
+                () => {
+                    assertCalls({ scheduleShutdown: ['-1m', false] });
+                },
+            );
+        });
 
-    function assertCalls(calls: {
-        scheduleShutdown?: any[];
-        scheduleRestart?: any[];
-        cancelShutdown?: any[];
-    }): void {
-        const actual = {
-            scheduleShutdown: scheduleShutdownMock.calls,
-            scheduleRestart: scheduleRestartMock.calls,
-            cancelShutdown: cancelShutdownMock.calls,
-        };
-        const expected = {
-            scheduleShutdown: calls.scheduleShutdown ? [calls.scheduleShutdown] : [],
-            scheduleRestart: calls.scheduleRestart ? [calls.scheduleRestart] : [],
-            cancelShutdown: calls.cancelShutdown ? [calls.cancelShutdown] : [],
-        };
-        expect(actual).toMatchObject(expected);
-    }
+        it('hello world fails', async () => {
+            await processArgs(['hello', 'world']).then(
+                () => assert.fail(),
+                () => {
+                    assertCalls({ scheduleShutdown: ['hello', false] });
+                },
+            );
+        });
+
+        it('unknown argument fails', async () => {
+            await processArgs(['--unknown']).then(
+                () => assert.fail(),
+                () => {
+                    assertCalls({});
+                },
+            );
+        });
+
+        function assertCalls(calls: {
+            scheduleShutdown?: any[];
+            scheduleRestart?: any[];
+            cancelShutdown?: any[];
+        }): void {
+            const actual = {
+                scheduleShutdown: scheduleShutdownSpy.args,
+                scheduleRestart: scheduleRestartSpy.args,
+                cancelShutdown: cancelShutdownSpy.args,
+            };
+            const expected = {
+                scheduleShutdown: calls.scheduleShutdown ? [calls.scheduleShutdown] : [],
+                scheduleRestart: calls.scheduleRestart ? [calls.scheduleRestart] : [],
+                cancelShutdown: calls.cancelShutdown ? [calls.cancelShutdown] : [],
+            };
+            assert.deepEqual(actual, expected);
+        }
+    });
 });
