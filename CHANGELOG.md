@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Next]
+
+### Changed
+
+-   Separate sourcemaps into their own files
+
+### Chores
+
+-   Add tests for CLI
+-   Migrate from Jest to nyc/Mocha/Chai/Sinon for code coverage on child processes
+
 ## [1.1.3] - 2018-12-07
 
 ### Added
