@@ -51,7 +51,6 @@ yargs
     });
 
 export async function processArgs(args?: string[]): Promise<void> {
-    // istanbul ignore else - for unit tests
     if (args) {
         yargs.parse(args, {}, (err, argv, output) => {
             console.log(output);
