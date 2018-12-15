@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import { cancelShutdown, scheduleRestart, scheduleShutdown } from '../index';
 import * as drivers from '../lib/drivers';
 
-describe('index', function() {
+describe('index', () => {
     const sandbox = sinon.createSandbox();
 
     afterEach(() => {

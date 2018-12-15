@@ -8,7 +8,7 @@ import {
     parseDurationPatternMinutes,
 } from '../../lib/utilities';
 
-describe('lib/utilities', function() {
+describe('lib/utilities', () => {
     const sandbox = sinon.createSandbox();
 
     afterEach(() => {
