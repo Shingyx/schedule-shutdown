@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Next]
+## [Unreleased]
 
 ### Changed
 
@@ -91,7 +91,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 -   Added LICENSE.md
 -   Extra README.md badges
 
-## [0.1.0] - 2018-12-01
+## 0.1.0 - 2018-12-01
 
 ### Added
 
@@ -103,3 +103,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 -   Added README.md
 -   Travis CI support
+
+[Unreleased]: https://github.com/Shingyx/schedule-shutdown/compare/v1.1.3...master
+[1.1.3]: https://github.com/Shingyx/schedule-shutdown/compare/v1.1.2...v1.1.3
+[1.1.2]: https://github.com/Shingyx/schedule-shutdown/compare/v1.1.1...v1.1.2
+[1.1.1]: https://github.com/Shingyx/schedule-shutdown/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/Shingyx/schedule-shutdown/compare/v1.0.1...v1.1.0
+[1.0.1]: https://github.com/Shingyx/schedule-shutdown/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/Shingyx/schedule-shutdown/compare/v0.1.0...v1.0.0
