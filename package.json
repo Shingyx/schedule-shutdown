@@ -30,19 +30,19 @@
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^10.12.11",
-    "@types/sinon": "^7.0.0",
-    "@types/yargs": "^12.0.1",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^10.12.29",
+    "@types/sinon": "^7.0.8",
+    "@types/yargs": "^12.0.9",
     "chai": "^4.2.0",
-    "mocha": "^5.2.0",
-    "nyc": "^13.1.0",
-    "prettier": "^1.15.3",
-    "rimraf": "^2.6.2",
-    "sinon": "^7.2.2",
-    "source-map-support": "^0.5.9",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.17.0",
-    "typescript": "^3.2.1"
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0",
+    "prettier": "^1.16.4",
+    "rimraf": "^2.6.3",
+    "sinon": "^7.2.6",
+    "source-map-support": "^0.5.10",
+    "tslint": "^5.13.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.3.3333"
   }
 }

@@ -5,7 +5,7 @@ let asyncHandler: (() => Promise<void>) | undefined;
 
 yargs
     .scriptName('schedule-shutdown')
-    .command({
+    .command<{ durationPattern: string; restart: boolean; verbose: boolean }>({
         command: '$0 <duration-pattern>',
         describe: 'Schedules a shutdown after the provided duration has elapsed',
         handler({ durationPattern, restart, verbose }) {
@@ -18,7 +18,7 @@ yargs
             };
         },
     })
-    .command({
+    .command<{ verbose: boolean }>({
         command: 'cancel',
         describe: 'Cancels a previously scheduled shutdown or restart',
         handler({ verbose }) {
@@ -50,17 +50,8 @@ yargs
         v: 'version',
     });
 
-export async function processArgs(args?: string[]): Promise<void> {
-    if (args) {
-        yargs.parse(args, {}, (err, argv, output) => {
-            console.log(output);
-            if (err) {
-                throw err;
-            }
-        });
-    } else {
-        yargs.parse();
-    }
+export async function processArgs(args: string[]): Promise<void> {
+    yargs.parse(args);
 
     if (asyncHandler) {
         const promise = asyncHandler();

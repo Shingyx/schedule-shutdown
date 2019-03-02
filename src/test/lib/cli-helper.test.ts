@@ -25,103 +25,97 @@ describe('lib/cli-helper', () => {
 
     describe('processArgs', () => {
         it('1h20m', async () => {
-            await processArgs(['1h20m']);
-            assertCalls({ scheduleShutdown: ['1h20m', false] });
+            await runTest(['1h20m'], { scheduleShutdown: ['1h20m', false] });
         });
 
         it('--verbose 10m', async () => {
-            await processArgs(['--verbose', '10m']);
-            assertCalls({ scheduleShutdown: ['10m', true] });
+            await runTest(['--verbose', '10m'], { scheduleShutdown: ['10m', true] });
         });
 
         it('3h --verbose', async () => {
-            await processArgs(['3h', '--verbose']);
-            assertCalls({ scheduleShutdown: ['3h', true] });
+            await runTest(['3h', '--verbose'], { scheduleShutdown: ['3h', true] });
         });
 
         it('--restart 1h20m', async () => {
-            await processArgs(['--restart', '1h20m']);
-            assertCalls({ scheduleRestart: ['1h20m', false] });
+            await runTest(['--restart', '1h20m'], { scheduleRestart: ['1h20m', false] });
         });
 
         it('5m -r --verbose', async () => {
-            await processArgs(['5m', '-r', '--verbose']);
-            assertCalls({ scheduleRestart: ['5m', true] });
+            await runTest(['5m', '-r', '--verbose'], { scheduleRestart: ['5m', true] });
         });
 
         it('cancel', async () => {
-            await processArgs(['cancel']);
-            assertCalls({ cancelShutdown: [false] });
+            await runTest(['cancel'], { cancelShutdown: [false] });
         });
 
         it('--verbose cancel', async () => {
-            await processArgs(['--verbose', 'cancel']);
-            assertCalls({ cancelShutdown: [true] });
+            await runTest(['--verbose', 'cancel'], { cancelShutdown: [true] });
         });
 
         it('--version', async () => {
-            await processArgs(['--version']);
-            assertCalls({});
+            await runTest(['--version'], {});
         });
 
         it('-v', async () => {
-            await processArgs(['-v']);
-            assertCalls({});
+            await runTest(['-v'], {});
         });
 
         it('--help', async () => {
-            await processArgs(['--help']);
-            assertCalls({});
+            await runTest(['--help'], {});
         });
 
         it('-h', async () => {
-            await processArgs(['-h']);
-            assertCalls({});
+            await runTest(['-h'], {});
         });
 
         it('-1m fails', async () => {
-            await processArgs(['-1m']).then(
-                () => assert.fail(),
-                () => {
-                    assertCalls({ scheduleShutdown: ['-1m', false] });
-                },
-            );
+            await runTest(['-1m'], { scheduleShutdown: ['-1m', false] }, false);
         });
 
         it('hello world fails', async () => {
-            await processArgs(['hello', 'world']).then(
-                () => assert.fail(),
-                () => {
-                    assertCalls({ scheduleShutdown: ['hello', false] });
-                },
-            );
+            await runTest(['hello', 'world'], { scheduleShutdown: ['hello', false] }, false);
         });
 
         it('unknown argument fails', async () => {
-            await processArgs(['--unknown']).then(
-                () => assert.fail(),
-                () => {
-                    assertCalls({});
-                },
-            );
+            await runTest(['--unknown'], {}, false);
         });
 
-        function assertCalls(calls: {
-            scheduleShutdown?: any[];
-            scheduleRestart?: any[];
-            cancelShutdown?: any[];
-        }): void {
-            const actual = {
+        async function runTest(
+            args: string[],
+            calls: {
+                scheduleShutdown?: any[];
+                scheduleRestart?: any[];
+                cancelShutdown?: any[];
+            },
+            expectSuccess: boolean = true,
+        ): Promise<void> {
+            let exitError: Error | undefined;
+            sandbox.stub(process, 'exit').callsFake(((code?: number) => {
+                if (code) {
+                    exitError = new Error(`exit code ${code}`);
+                }
+            }) as any);
+
+            if (expectSuccess) {
+                await processArgs(args);
+            } else {
+                await processArgs(args).then(
+                    () => assert.isDefined(exitError),
+                    (fnError) => assert.isDefined(fnError),
+                );
+            }
+
+            const actualCalls = {
                 scheduleShutdown: scheduleShutdownSpy.args,
                 scheduleRestart: scheduleRestartSpy.args,
                 cancelShutdown: cancelShutdownSpy.args,
             };
-            const expected = {
+            const expectedCalls = {
                 scheduleShutdown: calls.scheduleShutdown ? [calls.scheduleShutdown] : [],
                 scheduleRestart: calls.scheduleRestart ? [calls.scheduleRestart] : [],
                 cancelShutdown: calls.cancelShutdown ? [calls.cancelShutdown] : [],
             };
-            assert.deepEqual(actual, expected);
+            assert.deepEqual(actualCalls, expectedCalls);
         }
     });
 });
