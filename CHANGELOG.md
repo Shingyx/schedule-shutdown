@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 
 -   Separate sourcemaps into their own files
+-   Much stricter command parsing
+-   Minor changes to help text and `yargs` usage
 
 ### Chores
 
