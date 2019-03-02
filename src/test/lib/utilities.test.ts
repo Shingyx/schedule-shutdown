@@ -5,7 +5,7 @@ import util from 'util';
 import {
     execHelper,
     parseAndValidateMinutes,
-    parseDurationPatternMinutes,
+    parseDurationStringMinutes,
 } from '../../lib/utilities';
 
 describe('lib/utilities', () => {
@@ -15,41 +15,41 @@ describe('lib/utilities', () => {
         sandbox.restore();
     });
 
-    describe('parseDurationPatternMinutes', () => {
+    describe('parseDurationStringMinutes', () => {
         it('0m returns 0', () => {
-            assert.strictEqual(parseDurationPatternMinutes('0m'), 0);
+            assert.strictEqual(parseDurationStringMinutes('0m'), 0);
         });
 
         it('0h returns 0', () => {
-            assert.strictEqual(parseDurationPatternMinutes('0h'), 0);
+            assert.strictEqual(parseDurationStringMinutes('0h'), 0);
         });
 
         it('0h0m returns 0', () => {
-            assert.strictEqual(parseDurationPatternMinutes('0h0m'), 0);
+            assert.strictEqual(parseDurationStringMinutes('0h0m'), 0);
         });
 
         it('5m returns 5', () => {
-            assert.strictEqual(parseDurationPatternMinutes('5m'), 5);
+            assert.strictEqual(parseDurationStringMinutes('5m'), 5);
         });
 
         it('12m returns 12', () => {
-            assert.strictEqual(parseDurationPatternMinutes('12m'), 12);
+            assert.strictEqual(parseDurationStringMinutes('12m'), 12);
         });
 
         it('321m returns 321', () => {
-            assert.strictEqual(parseDurationPatternMinutes('321m'), 321);
+            assert.strictEqual(parseDurationStringMinutes('321m'), 321);
         });
 
         it('5h returns 300', () => {
-            assert.strictEqual(parseDurationPatternMinutes('5h'), 300);
+            assert.strictEqual(parseDurationStringMinutes('5h'), 300);
         });
 
         it('5h10m returns 310', () => {
-            assert.strictEqual(parseDurationPatternMinutes('5h10m'), 310);
+            assert.strictEqual(parseDurationStringMinutes('5h10m'), 310);
         });
 
         it('1h60m returns 120', () => {
-            assert.strictEqual(parseDurationPatternMinutes('1h60m'), 120);
+            assert.strictEqual(parseDurationStringMinutes('1h60m'), 120);
         });
 
         describe('invalid values', () => {
@@ -70,7 +70,7 @@ describe('lib/utilities', () => {
 
             for (const value of invalidValues) {
                 it(`${JSON.stringify(value)} returns -1`, () => {
-                    assert.strictEqual(parseDurationPatternMinutes(value), -1);
+                    assert.strictEqual(parseDurationStringMinutes(value), -1);
                 });
             }
         });

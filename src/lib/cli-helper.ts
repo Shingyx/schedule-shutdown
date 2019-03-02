@@ -5,13 +5,15 @@ let asyncHandler: (() => Promise<void>) | undefined;
 
 const yargsInstance = yargs([])
     .scriptName('schedule-shutdown')
-    .command<{ durationPattern: string; restart: boolean; verbose: boolean }>({
-        command: '$0 <duration-pattern>',
+    .command<{ duration: string; restart: boolean; verbose: boolean }>({
+        command: '$0 <duration>',
         describe: 'Schedules a shutdown after the provided duration has elapsed',
-        handler({ durationPattern, restart, verbose }) {
+        handler(args) {
+            assertNoExtraArgs(args._);
+            const { duration, restart, verbose } = args;
             asyncHandler = async () => {
                 const fn = restart ? scheduleRestart : scheduleShutdown;
-                const shutdownTime = await fn(durationPattern, verbose);
+                const shutdownTime = await fn(duration, verbose);
                 const action = restart ? 'Restart' : 'Shutdown';
                 const timeString = `${shutdownTime.toDateString()} ${shutdownTime.toLocaleTimeString()}`;
                 console.log(`${action} scheduled for ${timeString}`);
@@ -21,7 +23,9 @@ const yargsInstance = yargs([])
     .command<{ verbose: boolean }>({
         command: 'cancel',
         describe: 'Cancels a previously scheduled shutdown or restart',
-        handler({ verbose }) {
+        handler(args) {
+            assertNoExtraArgs(args._.filter((arg) => arg !== 'cancel'));
+            const { verbose } = args;
             asyncHandler = async () => {
                 await cancelShutdown(verbose);
                 console.log('Scheduled shutdown or restart cancelled');
@@ -48,7 +52,8 @@ const yargsInstance = yargs([])
         r: 'restart',
         h: 'help',
         v: 'version',
-    });
+    })
+    .strict();
 
 export async function processArgs(args: string[]): Promise<void> {
     yargsInstance.parse(args);
@@ -57,5 +62,11 @@ export async function processArgs(args: string[]): Promise<void> {
         const promise = asyncHandler();
         asyncHandler = undefined;
         await promise;
+    }
+}
+
+function assertNoExtraArgs(args: string[]): void {
+    if (args.length > 0) {
+        throw new Error('Unknown arguments: ' + args.join());
     }
 }

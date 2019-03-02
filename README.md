@@ -23,16 +23,15 @@ Then use it like so:
 
 ```console
 $ schedule-shutdown --help
-schedule-shutdown <duration-pattern>
+schedule-shutdown <duration>
 
 Schedules a shutdown after the provided duration has elapsed
 
 Commands:
-  schedule-shutdown <duration-pattern>     Schedules a shutdown after the
-                                           provided duration has elapsed
-                                                                       [default]
-  schedule-shutdown cancel                 Cancels a previously scheduled
-                                           shutdown or restart
+  schedule-shutdown <duration>     Schedules a shutdown after the provided
+                                   duration has elapsed                [default]
+  schedule-shutdown cancel         Cancels a previously scheduled shutdown or
+                                   restart
 
 Options:
   --verbose      Log the internal commands used and their outputs

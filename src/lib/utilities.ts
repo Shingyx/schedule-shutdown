@@ -1,7 +1,7 @@
 import { execFile } from 'child_process';
 import { promisify } from 'util';
 
-export function parseDurationPatternMinutes(pattern: string): number {
+export function parseDurationStringMinutes(pattern: string): number {
     const durationMatch = /^(\d+h)?(\d+m)?$/.exec(pattern);
     if (!durationMatch || !durationMatch.input) {
         return -1;
@@ -23,7 +23,7 @@ export function parseDurationPatternMinutes(pattern: string): number {
 }
 
 export function parseAndValidateMinutes(duration: number | string): number {
-    const minutes = typeof duration === 'number' ? duration : parseDurationPatternMinutes(duration);
+    const minutes = typeof duration === 'number' ? duration : parseDurationStringMinutes(duration);
     if (minutes < 0) {
         throw new Error(`Invalid input "${duration}"`);
     }

@@ -69,11 +69,11 @@ describe('lib/cli-helper', () => {
         });
 
         it('-1m fails', async () => {
-            await runTest(['-1m'], { scheduleShutdown: ['-1m', false] }, false);
+            await runTest(['-1m'], {}, false);
         });
 
         it('hello world fails', async () => {
-            await runTest(['hello', 'world'], { scheduleShutdown: ['hello', false] }, false);
+            await runTest(['hello', 'world'], {}, false);
         });
 
         it('unknown argument fails', async () => {
