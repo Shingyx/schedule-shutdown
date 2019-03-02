@@ -3,7 +3,7 @@ import { cancelShutdown, scheduleRestart, scheduleShutdown } from '../index';
 
 let asyncHandler: (() => Promise<void>) | undefined;
 
-yargs
+const yargsInstance = yargs([])
     .scriptName('schedule-shutdown')
     .command<{ durationPattern: string; restart: boolean; verbose: boolean }>({
         command: '$0 <duration-pattern>',
@@ -51,7 +51,7 @@ yargs
     });
 
 export async function processArgs(args: string[]): Promise<void> {
-    yargs.parse(args);
+    yargsInstance.parse(args);
 
     if (asyncHandler) {
         const promise = asyncHandler();
