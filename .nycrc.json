@@ -1,0 +1,6 @@
+{
+  "reporters": [
+    "text",
+    "lcov"
+  ]
+}

@@ -20,7 +20,7 @@
     "prepare": "yarn build",
     "prepublishOnly": "yarn test",
     "prettier": "prettier --list-different \"src/**/*.ts\" \"*.md\"",
-    "test": "nyc --reporter=text --reporter=lcov mocha --require source-map-support/register \"dist/**/*.test.js\"",
+    "test": "nyc mocha",
     "posttest": "yarn tslint && yarn prettier",
     "tslint": "tslint --project tsconfig.json"
   },
