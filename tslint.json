@@ -1,16 +1,13 @@
 {
-  "defaultSeverity": "error",
   "extends": [
     "tslint:latest",
     "tslint-config-prettier"
   ],
-  "jsRules": {},
   "rules": {
     "await-promise": true,
     "no-console": false,
     "no-floating-promises": true,
     "no-implicit-dependencies": [true, "dev"],
     "object-literal-sort-keys": false
-  },
-  "rulesDirectory": []
+  }
 }
