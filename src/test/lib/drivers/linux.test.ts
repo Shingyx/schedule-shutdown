@@ -5,7 +5,7 @@ import * as utilities from '../../../lib/utilities';
 
 describe('lib/drivers/linux', () => {
     const sandbox = sinon.createSandbox();
-    let execHelperStub: sinon.SinonStub;
+    let execHelperStub: sinon.SinonSpy<[string, any[], boolean], Promise<void>>;
 
     beforeEach(() => {
         execHelperStub = sandbox.stub(utilities, 'execHelper').resolves();

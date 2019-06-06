@@ -107,7 +107,7 @@ describe('lib/utilities', () => {
     });
 
     describe('execHelper', () => {
-        let consoleLogSpy: sinon.SinonSpy;
+        let consoleLogSpy: sinon.SinonSpy<[...any[]], void>;
 
         beforeEach(() => {
             consoleLogSpy = sandbox.spy(console, 'log');

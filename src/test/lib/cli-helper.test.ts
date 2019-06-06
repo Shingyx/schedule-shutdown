@@ -6,9 +6,9 @@ import * as utilities from '../../lib/utilities';
 
 describe('lib/cli-helper', () => {
     const sandbox = sinon.createSandbox();
-    let scheduleShutdownSpy: sinon.SinonSpy;
-    let scheduleRestartSpy: sinon.SinonSpy;
-    let cancelShutdownSpy: sinon.SinonSpy;
+    let scheduleShutdownSpy: sinon.SinonSpy<[number | string, boolean?], Promise<Date>>;
+    let scheduleRestartSpy: sinon.SinonSpy<[number | string, boolean?], Promise<Date>>;
+    let cancelShutdownSpy: sinon.SinonSpy<[boolean?], Promise<void>>;
 
     beforeEach(() => {
         scheduleShutdownSpy = sandbox.spy(index, 'scheduleShutdown');
@@ -69,7 +69,7 @@ describe('lib/cli-helper', () => {
         });
 
         it('-1m fails', async () => {
-            await runTest(['-1m'], {}, false);
+            await runTest(['-1m'], { scheduleShutdown: ['-1m', false] }, false);
         });
 
         it('hello world fails', async () => {
