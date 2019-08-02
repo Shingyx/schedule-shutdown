@@ -13,8 +13,13 @@ describe('lib/drivers/index', () => {
             assert.hasAllKeys(driver, ['scheduleShutdown', 'scheduleRestart', 'cancelShutdown']);
         });
 
-        it('darwin is not supported', () => {
-            assert.throws(() => getDriver('darwin'), 'Your platform "darwin" is not supported');
+        it('darwin is supported', () => {
+            const driver = getDriver('darwin');
+            assert.hasAllKeys(driver, ['scheduleShutdown', 'scheduleRestart', 'cancelShutdown']);
+        });
+
+        it('android is not supported', () => {
+            assert.throws(() => getDriver('android'), 'Your platform "android" is not supported');
         });
 
         it('blah is not supported', () => {

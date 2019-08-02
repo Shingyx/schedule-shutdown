@@ -1,4 +1,4 @@
-import { execFile } from 'child_process';
+import { ChildProcess, execFile, spawn } from 'child_process';
 import { promisify } from 'util';
 
 export function parseDurationStringMinutes(pattern: string): number {
@@ -39,4 +39,20 @@ export async function execHelper(file: string, args: string[], verbose: boolean)
         const output = `${result.stdout.trim()}\n${result.stderr.trim()}`;
         console.log(`output: ${output.trim() || '[no output]'}`);
     }
+}
+
+export async function detachedSpawnHelper(
+    command: string,
+    args: string[],
+    verbose: boolean,
+): Promise<ChildProcess> {
+    if (verbose) {
+        console.log(`spawning in background: ${[command, ...args].join(' ')}`);
+    }
+    const subprocess = spawn(command, args, { detached: true, stdio: 'ignore' });
+    subprocess.unref();
+    if (verbose) {
+        console.log(`started process ${subprocess.pid}`);
+    }
+    return subprocess;
 }

@@ -1,3 +1,4 @@
+import darwin from './darwin';
 import linux from './linux';
 import win32 from './win32';
 
@@ -8,6 +9,7 @@ export interface IDriver {
 }
 
 const supportedDrivers: { [platform: string]: IDriver | undefined } = {
+    darwin,
     linux,
     win32,
 };

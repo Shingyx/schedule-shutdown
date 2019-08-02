@@ -17,6 +17,7 @@ describe('lib/cli-helper', () => {
 
         // don't actually shutdown
         sandbox.stub(utilities, 'execHelper').resolves();
+        sandbox.stub(utilities, 'detachedSpawnHelper').resolves();
     });
 
     afterEach(() => {
