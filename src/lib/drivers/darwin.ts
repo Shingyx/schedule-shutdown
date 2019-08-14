@@ -4,7 +4,7 @@ import { IDriver } from './index';
 const darwin: IDriver = {
     async scheduleShutdown(minutes: number, verbose: boolean): Promise<void> {
         const seconds = minutes * 60;
-        await detachedSpawnHelper(
+        detachedSpawnHelper(
             'osascript',
             ['-e', `delay ${seconds}`, '-e', 'tell app "System Events" to shut down'],
             verbose,
@@ -12,7 +12,7 @@ const darwin: IDriver = {
     },
     async scheduleRestart(minutes: number, verbose: boolean): Promise<void> {
         const seconds = minutes * 60;
-        await detachedSpawnHelper(
+        detachedSpawnHelper(
             'osascript',
             ['-e', `delay ${seconds}`, '-e', 'tell app "System Events" to restart'],
             verbose,

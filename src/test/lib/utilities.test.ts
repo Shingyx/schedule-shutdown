@@ -1,8 +1,9 @@
 import { assert } from 'chai';
-import { execFile } from 'child_process';
+import childProcess, { execFile } from 'child_process';
 import sinon from 'sinon';
 import util from 'util';
 import {
+    detachedSpawnHelper,
     execHelper,
     parseAndValidateMinutes,
     parseDurationStringMinutes,
@@ -227,6 +228,47 @@ describe('lib/utilities', () => {
                         stderr: options.stderr || '',
                     };
                 });
+        }
+    });
+
+    describe('detachedSpawnHelper', () => {
+        let consoleLogSpy: sinon.SinonSpy<[...any[]], void>;
+
+        beforeEach(() => {
+            consoleLogSpy = sandbox.spy(console, 'log');
+        });
+
+        it('arguments are passed to spawn as is', () => {
+            const command = 'echo.exe';
+            const args = ['Hello', 'world!'];
+            const pid = 1234;
+            mockSpawn(command, args, pid);
+            detachedSpawnHelper(command, args, false);
+            assert.deepEqual(consoleLogSpy.args, []);
+        });
+
+        it('verbose enabled', () => {
+            const command = 'echo.exe';
+            const args = ['Hello', 'world!'];
+            const pid = 9001;
+            mockSpawn(command, args, pid);
+            detachedSpawnHelper(command, args, true);
+            assert.deepEqual(consoleLogSpy.args, [
+                ['spawning in background: echo.exe Hello world!'],
+                [`started process ${pid}`],
+            ]);
+        });
+
+        function mockSpawn(expectedCommand: string, expectedArgs: string[], pid: number): void {
+            sandbox.stub(childProcess, 'spawn').callsFake((...fnArgs) => {
+                assert.deepEqual(fnArgs, [
+                    expectedCommand,
+                    expectedArgs,
+                    { detached: true, stdio: 'ignore' },
+                ]);
+                const unref = () => {}; // tslint:disable-line:no-empty
+                return { pid, unref } as any;
+            });
         }
     });
 });
