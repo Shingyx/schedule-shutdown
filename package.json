@@ -14,14 +14,14 @@
   "scripts": {
     "prebuild": "yarn clean",
     "build": "tsc",
-    "build-test": "yarn build && yarn test",
     "clean": "rimraf dist",
     "format": "yarn tslint --fix && yarn prettier --write",
+    "mocha": "nyc mocha",
+    "postmocha": "yarn tslint && yarn prettier",
     "prepare": "yarn build",
-    "prepublishOnly": "yarn test",
-    "prettier": "prettier --list-different \"src/**/*.ts\" \"*.md\"",
-    "test": "nyc mocha",
-    "posttest": "yarn tslint && yarn prettier",
+    "prepublishOnly": "yarn mocha",
+    "prettier": "prettier --check \"src/**/*.ts\" \"*.md\"",
+    "test": "yarn build && yarn mocha",
     "tslint": "tslint --project tsconfig.json"
   },
   "dependencies": {
