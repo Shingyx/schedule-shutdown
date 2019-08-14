@@ -12,7 +12,7 @@ install:
   - yarn --frozen-lockfile
 
 script:
-  - yarn test
+  - yarn mocha
   - codecov
 
 notifications:
