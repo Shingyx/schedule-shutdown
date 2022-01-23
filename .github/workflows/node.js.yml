@@ -22,6 +22,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
-    - uses: codecov/codecov-action@v2
     - run: yarn --frozen-lockfile
     - run: yarn mocha
+    - uses: codecov/codecov-action@v2
