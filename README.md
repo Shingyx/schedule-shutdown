@@ -1,6 +1,6 @@
 # schedule-shutdown
 
-[![Build Status][travis-image]][travis-url] [![Coverage Status][codecov-image]][codecov-url] [![NPM version][npm-image]][npm-url] [![Prettier][prettier-image]][prettier-url] [![License][license-image]][license-url]
+[![Build Status][ci-image]][ci-url] [![Coverage Status][codecov-image]][codecov-url] [![NPM version][npm-image]][npm-url] [![Prettier][prettier-image]][prettier-url] [![License][license-image]][license-url]
 
 _schedule-shutdown_ is a CLI tool to schedule computer shutdowns. This can be useful when:
 
@@ -111,8 +111,8 @@ Returns a promise which resolves when the shutdown cancelled successfully. The p
 
 If verbose is set to true, then the internal commands and their outputs will be logged to the console.
 
-[travis-image]: https://img.shields.io/travis/com/Shingyx/schedule-shutdown/master.svg?style=flat-square
-[travis-url]: https://travis-ci.com/Shingyx/schedule-shutdown
+[ci-image]: https://img.shields.io/github/workflow/status/Shingyx/schedule-shutdown/Node.js%20CI/master?style=flat-square
+[ci-url]: https://github.com/Shingyx/schedule-shutdown/actions?query=branch%3Amaster
 [codecov-image]: https://img.shields.io/codecov/c/github/Shingyx/schedule-shutdown/master.svg?style=flat-square
 [codecov-url]: https://codecov.io/gh/Shingyx/schedule-shutdown
 [npm-image]: https://img.shields.io/npm/v/schedule-shutdown.svg?style=flat-square
