@@ -1,6 +1,10 @@
 # schedule-shutdown
 
-[![Build Status][ci-image]][ci-url] [![Coverage Status][codecov-image]][codecov-url] [![NPM version][npm-image]][npm-url] [![Prettier][prettier-image]][prettier-url] [![License][license-image]][license-url]
+[![Build Status][ci-image]][ci-url]
+[![Coverage Status][codecov-image]][codecov-url]
+[![NPM version][npm-image]][npm-url]
+[![Prettier][prettier-image]][prettier-url]
+[![License][license-image]][license-url]
 
 _schedule-shutdown_ is a CLI tool to schedule computer shutdowns. This can be useful when:
 
