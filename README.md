@@ -115,7 +115,7 @@ Returns a promise which resolves when the shutdown cancelled successfully. The p
 
 If verbose is set to true, then the internal commands and their outputs will be logged to the console.
 
-[ci-image]: https://img.shields.io/github/workflow/status/Shingyx/schedule-shutdown/Node.js%20CI/master?style=flat-square
+[ci-image]: https://img.shields.io/github/actions/workflow/status/Shingyx/schedule-shutdown/node.js.yml?branch=master&style=flat-square
 [ci-url]: https://github.com/Shingyx/schedule-shutdown/actions?query=branch%3Amaster
 [codecov-image]: https://img.shields.io/codecov/c/github/Shingyx/schedule-shutdown/master.svg?style=flat-square
 [codecov-url]: https://codecov.io/gh/Shingyx/schedule-shutdown
