@@ -5,44 +5,49 @@
   "repository": "https://github.com/Shingyx/schedule-shutdown",
   "license": "MIT",
   "author": "Su-Shing Chen",
-  "files": [
-    "dist/!(test)"
-  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": "dist/cli.js",
+  "files": [
+    "dist/!(test)"
+  ],
   "scripts": {
     "prebuild": "yarn clean",
     "build": "tsc",
     "clean": "rimraf dist",
-    "format": "yarn tslint --fix && yarn prettier --write",
+    "fix": "yarn lint:fix && yarn format",
+    "format": "yarn format:check --write",
+    "format:check": "prettier --check \"./**/*.{json,md,ts,yml}\" --ignore-path .gitignore",
+    "lint": "eslint --ext .ts src",
+    "lint:fix": "yarn lint --fix",
     "mocha": "nyc mocha",
-    "postmocha": "yarn tslint && yarn prettier",
+    "postmocha": "yarn lint && yarn format:check",
     "prepare": "yarn build",
     "prepublishOnly": "yarn mocha",
-    "prettier": "prettier --check \"src/**/*.ts\" \"*.md\"",
-    "test": "yarn build && yarn mocha",
-    "tslint": "tslint --project tsconfig.json"
+    "test": "yarn build && yarn mocha"
   },
   "dependencies": {
-    "tslib": "^1.9.3",
-    "yargs": "^13.2.4"
+    "tslib": "^2.6.2",
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.7",
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^10.14.8",
-    "@types/sinon": "^7.0.12",
-    "@types/yargs": "^13.0.0",
-    "chai": "^4.2.0",
-    "mocha": "^8.1.1",
-    "nyc": "^13.3.0",
-    "prettier": "^1.17.1",
-    "rimraf": "^2.6.3",
-    "sinon": "^7.3.2",
-    "source-map-support": "^0.5.12",
-    "tslint": "^5.17.0",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.5.1"
+    "@types/chai": "^4.3.6",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.6.1",
+    "@types/sinon": "^10.0.16",
+    "@types/yargs": "17.0.19",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
+    "chai": "^4.3.8",
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0",
+    "prettier": "^3.0.3",
+    "rimraf": "^5.0.1",
+    "sinon": "^16.0.0",
+    "source-map-support": "^0.5.21",
+    "typescript": "^5.2.2"
   }
 }
