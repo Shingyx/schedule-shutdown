@@ -8,11 +8,11 @@
 
 _schedule-shutdown_ is a CLI tool to schedule computer shutdowns. This can be useful when:
 
--   You want to start a large download before you leave the computer, but you know the download will be finished well before you get back
--   You already know the command `shutdown.exe /s /t <seconds>`, but you can't be bothered converting 2 hours and 47 minutes into seconds
--   You want something to force you to go to bed at a reasonable hour
+- You want to start a large download before you leave the computer, but you know the download will be finished well before you get back
+- You already know the command `shutdown.exe /s /t <seconds>`, but you can't be bothered converting 2 hours and 47 minutes into seconds
+- You want something to force you to go to bed at a reasonable hour
 
-Requires Node 8 or above. Currently supports Windows, Linux, and macOS. _schedule-shutdown_ can also be used as a library.
+Requires Node. Currently supports Windows, Linux, and macOS. _schedule-shutdown_ can also be used as a library.
 
 ## Usage
 
@@ -20,8 +20,8 @@ Requires Node 8 or above. Currently supports Windows, Linux, and macOS. _schedul
 
 Install _schedule-shutdown_ with either of the following, depending on your preferred package manager:
 
--   `yarn global add schedule-shutdown`
--   `npm install --global schedule-shutdown`
+- `yarn global add schedule-shutdown`
+- `npm install --global schedule-shutdown`
 
 Then use it like so:
 
@@ -68,8 +68,8 @@ Scheduled shutdown or restart cancelled
 
 To uninstall, do one of the following, depending on how you installed it:
 
--   `yarn global remove schedule-shutdown`
--   `npm uninstall --global schedule-shutdown`
+- `yarn global remove schedule-shutdown`
+- `npm uninstall --global schedule-shutdown`
 
 ### API
 
@@ -79,17 +79,17 @@ If you have your own project where you want to shutdown people's computers, you 
 import { cancelShutdown, scheduleRestart, scheduleShutdown } from 'schedule-shutdown';
 
 async function main() {
-    // shutdown in 1 hour and 20 minutes
-    const shutdownTime = await scheduleShutdown('1h20m');
-    console.log(`Shutting down at ${shutdownTime.toLocaleTimeString()}`);
-    await cancelShutdown();
-    console.log('Shutdown cancelled');
+  // shutdown in 1 hour and 20 minutes
+  const shutdownTime = await scheduleShutdown('1h20m');
+  console.log(`Shutting down at ${shutdownTime.toLocaleTimeString()}`);
+  await cancelShutdown();
+  console.log('Shutdown cancelled');
 
-    // restart in 5 minutes
-    const restartTime = await scheduleRestart(5);
-    console.log(`Restarting at ${restartTime.toLocaleTimeString()}`);
-    await cancelShutdown();
-    console.log('Restart cancelled');
+  // restart in 5 minutes
+  const restartTime = await scheduleRestart(5);
+  console.log(`Restarting at ${restartTime.toLocaleTimeString()}`);
+  await cancelShutdown();
+  console.log('Restart cancelled');
 }
 
 main().catch(console.error);

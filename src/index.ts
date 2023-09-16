@@ -8,13 +8,13 @@ import { parseAndValidateMinutes } from './lib/utilities';
  * @returns The scheduled shutdown time
  */
 export async function scheduleShutdown(
-    duration: number | string,
-    verbose: boolean = false,
+  duration: number | string,
+  verbose: boolean = false,
 ): Promise<Date> {
-    const minutes = parseAndValidateMinutes(duration);
-    const start = Date.now();
-    await getDriver(process.platform).scheduleShutdown(minutes, verbose);
-    return new Date(start + minutes * 60 * 1000);
+  const minutes = parseAndValidateMinutes(duration);
+  const start = Date.now();
+  await getDriver(process.platform).scheduleShutdown(minutes, verbose);
+  return new Date(start + minutes * 60 * 1000);
 }
 
 /**
@@ -24,13 +24,13 @@ export async function scheduleShutdown(
  * @returns The scheduled shutdown time
  */
 export async function scheduleRestart(
-    duration: number | string,
-    verbose: boolean = false,
+  duration: number | string,
+  verbose: boolean = false,
 ): Promise<Date> {
-    const minutes = parseAndValidateMinutes(duration);
-    const start = Date.now();
-    await getDriver(process.platform).scheduleRestart(minutes, verbose);
-    return new Date(start + minutes * 60 * 1000);
+  const minutes = parseAndValidateMinutes(duration);
+  const start = Date.now();
+  await getDriver(process.platform).scheduleRestart(minutes, verbose);
+  return new Date(start + minutes * 60 * 1000);
 }
 
 /**
@@ -38,5 +38,5 @@ export async function scheduleRestart(
  * @param verbose - If set to true, the internal commands and their outputs will be logged
  */
 export async function cancelShutdown(verbose: boolean = false): Promise<void> {
-    await getDriver(process.platform).cancelShutdown(verbose);
+  await getDriver(process.platform).cancelShutdown(verbose);
 }
